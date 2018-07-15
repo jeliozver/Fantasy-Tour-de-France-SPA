@@ -1,0 +1,156 @@
+header::after, footer::after, main::after {
+  content: "";
+  clear: both;
+  display: table;
+}
+
+#manage-fantasy-team .rider-card {
+  width: 20%;
+  vertical-align: top;
+}
+
+#manage-fantasy-team .rider-card h1 {
+  margin: 10px 5px;
+  font-size: 17px;
+}
+
+#manage-fantasy-team .team-stage div {
+  margin: 0 auto;
+  padding: 5px 0;
+  width: 100%;
+}
+
+.team-panel div {
+  width: 70%;
+  margin: 10px auto;
+  padding: 20px 10px;
+  border-radius: 4px;
+  background-color: #777;
+  text-transform: uppercase;
+  font-weight: 500;
+}
+
+.team-panel .deadline {
+  background-color: blue;
+}
+
+.team-panel .balance-pos, .team-panel .confirm-ok {
+  background-color: green;
+}
+
+.team-panel .balance-neg, .team-panel .confirm-err {
+  background-color: red;
+}
+
+.confirm-ok:hover, .confirm-err:hover {
+  cursor: pointer;
+}
+
+.remove-btn {
+  font-size: 30px;
+  color: #000;
+  background-color: transparent;
+  border-color: transparent;
+}
+
+.remove-btn:hover {
+  color: red;
+  cursor: pointer;
+}
+
+.fantasy-team-container {
+  float: left;
+  width: 55%;
+}
+
+.riders-container {
+  display: inline-block;
+  margin: 20px 0;
+}
+
+.riders-container table {
+  color: #FFF;
+  border-spacing: unset;
+}
+
+.riders-container table thead tr th {
+  font-family: 'Wendy One', sans-serif;
+  font-size: 20px;
+  color: #FFF;
+  background-color: #91A3B0;
+  text-align: center;
+  letter-spacing: 3px;
+  padding: 10px 0;
+  margin: 0;
+  text-align: center;
+  font-weight: normal;
+  border: 2px solid #1D211E;
+}
+
+.riders-container table tbody tr td {
+  padding: 10px 10px;
+  font-size: 15px;
+  margin: 0;
+  text-align: center;
+  background-color: #4B515D;
+  width: 100px;
+  border: 2px solid #1D211E;
+}
+
+.riders-container table tr:nth-child(even) td {
+  background-color: #37474F;
+}
+
+.riders-container table tbody tr button {
+  padding: 5px 15px;
+  border: 1px solid #777;
+  background-color: #777;
+  border-radius: 15px;
+  text-transform: uppercase;
+  font-weight: bold;
+  color: #FFF;
+}
+
+.riders-container table tbody tr button:hover {
+  cursor: pointer;
+  background-color: #FFF;
+  border-color: #FFF;
+  color: #000;
+}
+
+.pagination {
+  margin-top: 15px;
+}
+
+.pagination li {
+  display: inline-block;
+  padding: 12px 17px;
+  margin: 10px 5px 0 5px;
+  background-color: #777;
+  border-radius: 30px;
+}
+
+.pagination li a {
+  text-decoration: none;
+  color: #FFF;
+}
+
+.pagination .active {
+  background-color: #000;
+}
+
+.pagination li:hover {
+  background-color: #FFF;
+}
+
+.pagination li:hover a {
+  color: #000;
+}
+
+.pagination .disabled:hover, .pagination .disabled:hover a {
+  cursor: not-allowed;
+}
+
+.hide {
+  display: none;
+}

@@ -1,0 +1,517 @@
+@import url('https://fonts.googleapis.com/css?family=Open+Sans');
+@import url('https://fonts.googleapis.com/css?family=Wendy+One');
+@import url('https://use.fontawesome.com/releases/v5.1.0/css/all.css');
+input[type='number'] {
+  -moz-appearance: textfield;
+}
+
+input::-webkit-outer-spin-button, input::-webkit-inner-spin-button {
+  -webkit-appearance: none;
+}
+
+body {
+  font-family: 'Open Sans', sans-serif;
+  font-size: 22px;
+  background-color: #1D211E;
+  color: #FFF;
+  text-align: center;
+}
+
+/* Home Start */
+
+#home {
+  background: url('../img/home.png') no-repeat;
+  background-size: cover;
+  height: 670px;
+}
+
+#home h1 {
+  font-family: 'Wendy One', sans-serif;
+  font-size: 35px;
+  padding-top: 250px;
+  text-transform: uppercase;
+}
+
+#home h2 {
+  padding-top: 10px;
+  font-size: 30px;
+}
+
+/* Home End */
+
+/* Forms Start */
+
+#login-form, #register-form, #stage-form, #team-form, #rider-form, #fantasy-team-form, #stage-result-form {
+  position: relative;
+  width: 470px;
+  margin: 100px auto;
+  padding: 50px 60px 70px 60px;
+  background-color: #D5C395;
+  border-radius: 15px;
+}
+
+#login-form, #fantasy-team-form {
+  margin: 179px auto;
+}
+
+#team-form {
+  margin: 139px auto;
+}
+
+#stage-result-form {
+  margin: 10px auto 50px auto;
+}
+
+.input-field {
+  outline: none;
+  border: none;
+  width: 85%;
+  padding: 10px 10px 10px 60px;
+  margin-bottom: 30px;
+  border-radius: 5px;
+  background: #EFE1C4;
+  color: #927057;
+  font-size: 1.1em;
+}
+
+.select-field {
+  width: 100%;
+}
+
+.submit {
+  outline: none;
+  border: none;
+  width: 100%;
+  max-width: 500px;
+  padding: 10px;
+  border-radius: 5px;
+  background: #927057;
+  color: #D5C395;
+  font-size: 1.5em;
+  font-weight: 900;
+}
+
+.submit:hover {
+  cursor: pointer;
+  color: #FAE7B0;
+  box-shadow: 0 0 3px #FFF;
+}
+
+.from-field {
+  position: relative;
+}
+
+.fa-user, .fa-unlock-alt, .fa-envelope, .fa-users, .fa-sort-numeric-down, .fa-sort-numeric-up, .fa-road, .fa-calendar-alt, .fa-play, .fa-stopwatch, .fa-plane, .fa-image, .fa-map, .fa-globe, .fa-tshirt, .fa-bicycle, .fa-dollar-sign, .fa-grin, .fa-flag-checkered {
+  position: absolute;
+  top: 4px;
+  left: 14px;
+  color: #927057;
+  font-size: 30px;
+}
+
+.fa-unlock-alt {
+  top: 6px;
+}
+
+.fa-sort-numeric-down, .fa-sort-numeric-up, .fa-flag-checkered, .fa-road {
+  top: 10px;
+}
+
+/* Forms End */
+
+/* Stages Start */
+
+#stages-all {
+  margin: 30px 0;
+}
+
+#stages-all table {
+  color: #FFF;
+  border-spacing: unset;
+  margin: 0 auto;
+}
+
+#stages-all table thead th {
+  font-family: 'Wendy One', sans-serif;
+  font-size: 20px;
+  color: #FFF;
+  background-color: #91A3B0;
+  text-align: center;
+  letter-spacing: 2px;
+  padding: 30px 20px 30px 5px;
+  margin: 0;
+  text-align: center;
+  font-weight: normal;
+  border: 2px solid #1D211E;
+}
+
+#stages-all table tbody td {
+  padding: 15px 15px 10px 20px;
+  font-size: 18px;
+  margin: 0;
+  text-align: center;
+  background-color: #4B515D;
+  width: 150px;
+  border: 2px solid #1D211E;
+}
+
+table tr:nth-child(even) td {
+  background-color: #37474F;
+}
+
+table a {
+  text-decoration: none;
+  color: #FFF;
+}
+
+table a:hover {
+  color: #000;
+}
+
+#banner {
+  background: url('../img/stage-banner.jpg');
+  background-size: cover;
+}
+
+.stage-single-head {
+  margin-right: 80px;
+  padding: 30px 0;
+}
+
+.stage-single-head h1 {
+  font-family: 'Wendy One', sans-serif;
+  font-size: 35px;
+}
+
+.stage-single-head h2 {
+  font-size: 25px;
+}
+
+.stage-btn {
+  text-decoration: none;
+  margin: 20px 5px;
+  padding: 10px 30px;
+  background-color: crimson;
+  border: 1px solid crimson;
+  border-radius: 15px;
+  color: #FFF;
+  text-transform: uppercase;
+  font-weight: bold;
+  font-size: 15px;
+}
+
+.stage-btn:hover {
+  border-color: green;
+  background-color: green;
+}
+
+#stage-images img {
+  display: inline-block;
+  width: 45%;
+  height: 450px;
+  margin: 10px 5px;
+}
+
+/* Stages End */
+
+/* Teams Start */
+
+#teams-all div {
+  display: inline-block;
+  margin: 20px 10px;
+  padding: 10px;
+  border-radius: 10px;
+  width: 20%;
+  position: relative;
+  overflow: hidden;
+}
+
+#teams-all div h1, .team-card h1, .rider-card h1 {
+  font-family: 'Wendy One', sans-serif;
+  text-transform: uppercase;
+  margin: 10px 0;
+}
+
+#teams-all div .flag, .team-card .flag, .rider-card .flag {
+  display: block;
+  margin: 0 auto;
+}
+
+#teams-all div .jersey, .team-card .jersey {
+  width: 100%;
+  border-radius: 50%;
+}
+
+.effect p {
+  width: 95%;
+  height: 54%;
+  background: #000;
+  text-align: center;
+  text-decoration: none;
+  margin: 0 auto;
+  color: #FFF;
+  border-radius: 50%;
+  padding: 95px 0 0 0;
+  position: absolute;
+  top: 100px;
+  left: 9px;
+  opacity: 0;
+  cursor: pointer;
+  transition: opacity 0.5s;
+}
+
+.effect:hover p {
+  opacity: 0.8;
+  cursor: pointer;
+}
+
+.team-card {
+  width: 100%;
+  margin: 20px auto;
+  padding: 10px;
+  border-radius: 10px;
+  width: 20%;
+  position: relative;
+  overflow: hidden;
+}
+
+.arrows {
+  width: 48px;
+  height: 48px;
+  position: absolute;
+  top: 40%;
+  margin-top: -31px;
+}
+
+.prev {
+  border-bottom: 10px solid #FFF;
+  border-left: 10px solid #FFF;
+  -webkit-transform: rotate(45deg);
+  transform: rotate(45deg);
+  left: 30%;
+}
+
+.next {
+  border-bottom: 10px solid #FFF;
+  border-left: 10px solid #FFF;
+  -webkit-transform: rotate(-135deg);
+  transform: rotate(-135deg);
+  right: 30%;
+}
+
+.prev:hover, .next:hover {
+  cursor: pointer;
+  border-color: crimson;
+}
+
+.rider-card {
+  display: inline-block;
+  width: 25%;
+  margin: 20px;
+  padding: 10px 0;
+  background-color: #777;
+  border-radius: 15px;
+}
+
+.rider-card:hover {
+  background-color: #EFE1C4;
+  color: #000;
+}
+
+.rider-card h2 {
+  margin: 10px 0;
+}
+
+.rider-card a img {
+  border-radius: 10px;
+  border: 2px solid transparent;
+}
+
+.rider-card a img:hover {
+  border-color: black;
+}
+
+.team-btn, .rider-btn {
+  text-decoration: none;
+  padding: 10px 30px;
+  background-color: crimson;
+  border: 1px solid crimson;
+  border-radius: 15px;
+  color: #FFF;
+  text-transform: uppercase;
+  font-weight: bold;
+  font-size: 15px;
+}
+
+.team-btn:hover, .rider-btn:hover {
+  border-color: green;
+  background-color: green;
+}
+
+/* Teams End */
+
+/* Rider Start */
+
+#rider-single>div {
+  background-color: #777;
+  display: inline-block;
+  margin: 135px auto;
+  border-radius: 15px;
+}
+
+#rider-single h1 {
+  font-family: 'Wendy One', sans-serif;
+  font-size: 35px;
+}
+
+#rider-single h1 img {
+  position: relative;
+  top: 15px;
+  left: 7px;
+}
+
+#rider-single .rider-img {
+  border-radius: 10px;
+  margin-top: 10px;
+}
+
+#rider-single table {
+  color: #FFF;
+  margin: 20px;
+}
+
+#rider-single table thead th {
+  font-family: 'Wendy One', sans-serif;
+  color: #000;
+  background-color: #91A3B0;
+  text-align: center;
+  letter-spacing: 2px;
+  padding: 30px 25px;
+  margin: 0;
+  text-align: center;
+  font-weight: normal;
+  text-transform: uppercase;
+  vertical-align: middle;
+}
+
+#rider-single table tbody td {
+  padding: 30px 20px;
+  font-size: 18px;
+  margin: 0;
+  text-align: center;
+  font-size: 25px;
+  background-color: #4B515D;
+  width: 150px;
+  vertical-align: middle;
+}
+
+#rider-single>div div {
+  margin: 20px auto;
+}
+
+/* Rider End */
+
+/* Fantasy Team Start */
+
+#my-fantasy-team {
+  margin: 50px auto;
+}
+
+#my-fantasy-team>h1 {
+  font-family: 'Wendy One', sans-serif;
+  text-transform: uppercase;
+  margin-bottom: 15px;
+  font-size: 30px;
+}
+
+.blank {
+  width: 91%;
+  border-radius: 15px;
+}
+
+#manage-result>div {
+  margin: 50px auto;
+}
+
+#manage-result h1 {
+  margin: 30px auto;
+  font-size: 20px;
+  font-weight: bold;
+  text-transform: uppercase;
+}
+
+.lock, .unlock {
+  margin-left: 10px;
+  padding: 10px 30px;
+  border-radius: 15px;
+  color: #FFF;
+  text-transform: uppercase;
+  font-weight: bold;
+  font-size: 15px;
+}
+
+.lock:hover, .unlock:hover {
+  cursor: pointer;
+  color: #000;
+}
+
+.lock {
+  background-color: red;
+  border: 1px solid red;
+}
+
+.unlock {
+  background-color: green;
+  border: 1px solid green;
+}
+
+/* Fantasy Team  End */
+
+/* How to Start */
+
+#info-container article {
+  display: block;
+  background-color: #313532;
+  width: 60%;
+  margin: 0 auto;
+  margin-bottom: 20px;
+}
+
+#info-container h1 {
+  margin: 20px auto;
+  font-size: 25px;
+  font-weight: bold;
+}
+
+#info-container h2 {
+  width: 100%;
+  background-color: #F5B324;
+  color: #000;
+  height: 40px;
+  line-height: 35px;
+  font-weight: bold;
+}
+
+#info-container h3 {
+  margin-top: 10px;
+}
+
+#info-container p {
+  color: #FFF;
+  padding: 25px 10px;
+}
+
+#info-container ul li {
+  width: 60%;
+  text-align: justify;
+  margin: auto;
+  padding-bottom: 20px;
+}
+
+#info-container ul li span {
+  font-weight: bold;
+  font-size: 25px;
+  color: #F5B324;
+}
+
+/* How to End */

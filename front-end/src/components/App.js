@@ -4,9 +4,9 @@ import Header from './common/Header';
 import MyRouter from './MyRouter';
 import Footer from './common/Footer';
 
-import AuthService from '../utilities/AuthService';
-import CrudService from '../utilities/CrudService';
-import HelperService from '../utilities/HelperService';
+import AuthService from '../services/AuthService'
+import CrudService from '../services/CrudService';
+import HelperService from '../services/HelperService';
 
 const Auth = new AuthService();
 const Crud = new CrudService();

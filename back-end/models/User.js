@@ -6,25 +6,25 @@ const BOOLEAN = MONGOOSE.Schema.Types.Boolean;
 const OBJECT_ID = MONGOOSE.Schema.Types.ObjectId;
 
 const USER_SCHEMA = MONGOOSE.Schema({
-    username: { type: STRING, required: true, unique: true },
-    email: { type: STRING, required: true, unique: true },
-    password: { type: STRING, required: true },
-    salt: { type: STRING, required: true },
-    isAdmin: { type: BOOLEAN, default: false },
-    roles: [{ type: OBJECT_ID, ref: 'Role' }],
-    fantasyTeam: { type: OBJECT_ID, ref: 'FantasyTeam' }
+  username: { type: STRING, required: true, unique: true },
+  email: { type: STRING, required: true, unique: true },
+  password: { type: STRING, required: true },
+  salt: { type: STRING, required: true },
+  isAdmin: { type: BOOLEAN, default: false },
+  roles: [{ type: OBJECT_ID, ref: 'Role' }],
+  fantasyTeam: { type: OBJECT_ID, ref: 'FantasyTeam' }
 });
 
 USER_SCHEMA.method({
-    authenticate: function (password) {
-        let hashedPassword = ENCRYPTION.generateHashedPassword(this.salt, password);
+  authenticate: function (password) {
+    const hashedPassword = ENCRYPTION.generateHashedPassword(this.salt, password);
 
-        if (hashedPassword === this.password) {
-            return true;
-        }
-
-        return false;
+    if (hashedPassword === this.password) {
+      return true;
     }
+
+    return false;
+  }
 });
 
 const USER = MONGOOSE.model('User', USER_SCHEMA);

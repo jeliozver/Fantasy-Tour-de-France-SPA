@@ -7,6 +7,14 @@ import AnonymousNavigation from './AnonymousNavigation';
 import AdminPanel from './AdminPanel';
 
 const NavigationBase = (props) => {
+
+  const handleLogout = () => {
+    const { logout, helper } = props;
+
+    logout();
+    helper.notify('success', 'Logout successful!');
+
+  }
   return (
     <nav className="nav">
       <ul>
@@ -30,7 +38,7 @@ const NavigationBase = (props) => {
         </li>
         <AdminPanel isAdmin={props.isAdmin} />
         <li className="menu-item-right">
-          <NavLink to="/user/logout" onClick={props.logout}><span>Hello, {props.username}</span> Logout</NavLink>
+          <NavLink to="/user/logout" onClick={handleLogout}><span>Hello, {props.username}</span> Logout</NavLink>
         </li>
       </ul>
     </nav>

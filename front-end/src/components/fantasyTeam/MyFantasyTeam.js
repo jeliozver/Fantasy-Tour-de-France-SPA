@@ -3,8 +3,6 @@ import { Link } from 'react-router-dom';
 
 import blankJersey from '../../resources/img/blank-jersey.png';
 import FantasyTeamForm from '../forms/FantasyTeamForm';
-import helperService from '../../utilities/helperService';
-
 class MyFantasyTeam extends Component {
   constructor(props) {
     super(props);
@@ -18,12 +16,14 @@ class MyFantasyTeam extends Component {
   }
 
   componentDidMount() {
+    const { helper } = this.props;
+    
     this.props.fetchFunc().then((res) => {
       if (res.success) {
         if (res.body) {
 
           for (let rider of res.body.riders) {
-            rider['flag'] = helperService.getFlag(rider.country);
+            rider['flag'] = helper.getFlag(rider.country);
           }
 
           this.setState(prevState => ({
@@ -32,10 +32,10 @@ class MyFantasyTeam extends Component {
           }));
         }
       } else {
-        helperService.notify('error', res.message);
+        helper.notify('error', res.message);
       }
     }).catch((err) => {
-      helperService.notify('error', err);
+      helper.notify('error', err);
     });
   }
 

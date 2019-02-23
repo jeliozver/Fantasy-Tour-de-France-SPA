@@ -1,8 +1,6 @@
 import React, { Component } from 'react';
 import { Link } from 'react-router-dom';
 
-import helperService from '../../utilities/helperService';
-
 class TeamDetails extends Component {
   constructor(props) {
     super(props);
@@ -20,12 +18,14 @@ class TeamDetails extends Component {
   }
 
   handleResponse(res) {
+    const { helper } = this.props;
+
     if (res.success) {
 
-      res.body['flag'] = helperService.getFlag(res.body.country);
+      res.body['flag'] = helper.getFlag(res.body.country);
 
       for (let rider of res.body.riders) {
-        rider['flag'] = helperService.getFlag(rider.country);
+        rider['flag'] = helper.getFlag(rider.country);
       }
 
       this.setState({
@@ -33,31 +33,37 @@ class TeamDetails extends Component {
         teamOnFocus: res.body.teamNumber
       });
     } else {
-      helperService.notify('error', res.message);
+      helper.notify('error', res.message);
     }
   }
 
   componentDidMount() {
+    const { helper } = this.props;
+
     this.props.fetchFunc(this.props.match.params.id).then((res) => {
       this.handleResponse(res);
     }).catch((err) => {
-      helperService.notify('error', err);
+      helper.notify('error', err);
     });
   }
 
   prevTeam() {
+    const { helper } = this.props;
+
     this.props.toggleFunc(this.state.teamOnFocus - 1).then((res) => {
       this.handleResponse(res);
     }).catch((err) => {
-      helperService.notify('error', err);
+      helper.notify('error', err);
     });
   }
 
   nextTeam() {
+    const { helper } = this.props;
+    
     this.props.toggleFunc(this.state.teamOnFocus + 1).then((res) => {
       this.handleResponse(res);
     }).catch((err) => {
-      helperService.notify('error', err);
+      helper.notify('error', err);
     });
   }
 

@@ -1,10 +1,7 @@
 import decode from 'jwt-decode';
-
 import RequestService from './RequestService';
-import helperService from './helperService';
 
 const Request = new RequestService();
-
 class AuthService {
   constructor() {
     this.register = this.register.bind(this);
@@ -41,7 +38,6 @@ class AuthService {
    * Clears userinfo from localStorage
    */
   logout() {
-    helperService.notify('success', 'Logout successful!');
     localStorage.removeItem('token');
   }
 

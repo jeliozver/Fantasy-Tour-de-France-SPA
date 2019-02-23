@@ -1,8 +1,6 @@
 import React, { Component } from 'react';
 import { Link } from 'react-router-dom';
 
-import helperService from '../../utilities/helperService';
-
 class Teams extends Component {
   constructor(props) {
     super(props);
@@ -13,21 +11,23 @@ class Teams extends Component {
   }
 
   componentDidMount() {
+    const { helper } = this.props;
+    
     this.props.fetchFunc().then((res) => {
       if (res.success) {
 
         for (let tm of res.body) {
-          tm['flag'] = helperService.getFlag(tm.country);
+          tm['flag'] = helper.getFlag(tm.country);
         }
 
         this.setState({
           teams: res.body
         });
       } else {
-        helperService.notify('error', res.message);
+        helper.notify('error', res.message);
       }
     }).catch((err) => {
-      helperService.notify('error', err);
+      helper.notify('error', err);
     });
   }
 

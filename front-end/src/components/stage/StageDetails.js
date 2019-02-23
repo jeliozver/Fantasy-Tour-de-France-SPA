@@ -1,8 +1,6 @@
 import React, { Component } from 'react';
 import { Link } from 'react-router-dom';
 
-import helperService from '../../utilities/helperService';
-
 class StageDetails extends Component {
   constructor(props) {
     super(props);
@@ -18,6 +16,8 @@ class StageDetails extends Component {
   }
 
   handleResponse(res) {
+    const { helper } = this.props;
+
     if (res.success) {
       res.body.startDay = res.body.startDay.substring(8, 10);
 
@@ -26,31 +26,37 @@ class StageDetails extends Component {
         stageOnFocus: res.body.stageNumber
       });
     } else {
-      helperService.notify('error', res.message);
+      helper.notify('error', res.message);
     }
   }
 
   componentDidMount() {
+    const { helper } = this.props;
+
     this.props.fetchFunc(this.props.match.params.id).then((res) => {
       this.handleResponse(res);
     }).catch((err) => {
-      helperService.notify('error', err);
+      helper.notify('error', err);
     });
   }
 
   prevStage() {
+    const { helper } = this.props;
+
     this.props.toggleFunc(this.state.stageOnFocus - 1).then((res) => {
       this.handleResponse(res);
     }).catch((err) => {
-      helperService.notify('error', err);
+      helper.notify('error', err);
     });
   }
 
   nextStage() {
+    const { helper } = this.props;
+    
     this.props.toggleFunc(this.state.stageOnFocus + 1).then((res) => {
       this.handleResponse(res);
     }).catch((err) => {
-      helperService.notify('error', err);
+      helper.notify('error', err);
     });
   }
 

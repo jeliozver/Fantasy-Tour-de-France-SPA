@@ -1,8 +1,5 @@
 import React, { Component } from 'react';
 import { Link } from 'react-router-dom';
-
-import helperService from '../../utilities/helperService';
-
 class Stages extends Component {
   constructor(props) {
     super(props);
@@ -13,16 +10,18 @@ class Stages extends Component {
   }
 
   componentDidMount() {
+    const { helper } = this.props;
+
     this.props.fetchFunc().then((res) => {
       if (res.success) {
         this.setState({
           stages: res.body
         });
       } else {
-        helperService.notify('error', res.message);
+        helper.notify('error', res.message);
       }
     }).catch((err) => {
-      helperService.notify('error', err);
+      helper.notify('error', err);
     });
   }
 

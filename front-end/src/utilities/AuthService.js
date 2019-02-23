@@ -3,18 +3,20 @@ import decode from 'jwt-decode';
 import RequestService from './RequestService';
 import helperService from './helperService';
 
-let Request = new RequestService();
+const Request = new RequestService();
 
 class AuthService {
   constructor() {
     this.register = this.register.bind(this);
     this.login = this.login.bind(this);
-    this.logout = this.logout.bind(this);
-    this.getProfile = this.getProfile.bind(this);
-    this.isLoggedIn = this.isLoggedIn.bind(this);
-    this.isAdmin = this.isAdmin.bind(this);
   }
 
+  /**
+   * Registers the user
+   * 
+   * @param {Object} payload
+   * @returns {Promise} 
+   */
   register(payload) {
     return Request.post('/user/register', payload).then((res) => {
       this._setToken(res.token);
@@ -22,6 +24,12 @@ class AuthService {
     });
   }
 
+  /**
+   * Logs the user in
+   * 
+   * @param {Object} payload
+   * @returns {Promise}
+   */
   login(payload) {
     return Request.post('/user/login', payload).then((res) => {
       this._setToken(res.token);
@@ -29,11 +37,19 @@ class AuthService {
     });
   }
 
+  /**
+   * Clears userinfo from localStorage
+   */
   logout() {
     helperService.notify('success', 'Logout successful!');
     localStorage.removeItem('token');
   }
 
+  /**
+   * Gets user profile 
+   * 
+   * @returns {Object/undefined}
+   */
   getProfile() {
     try {
       const decoded = decode(this._getToken());
@@ -44,6 +60,11 @@ class AuthService {
     }
   }
 
+  /**
+   * Returns whether user is logged in
+   * 
+   * @returns {Boolean}
+   */
   isLoggedIn() {
     try {
       const decoded = decode(this._getToken());
@@ -58,6 +79,11 @@ class AuthService {
     }
   }
 
+  /**
+   *  Returns whether user is an admin
+   * 
+   * @returns {Boolean}
+   */
   isAdmin() {
     try {
       const decoded = decode(this._getToken());
@@ -76,10 +102,22 @@ class AuthService {
     }
   }
 
+  /**
+   * Sets JWT token to localStorage
+   * 
+   * @param {String} token
+   * @private 
+   */
   _setToken(token) {
     localStorage.setItem('token', token);
   }
 
+  /**
+   * Gets JWT token from localStorage
+   * 
+   * @returns {String}
+   * @private
+   */
   _getToken() {
     return localStorage.getItem('token');
   }

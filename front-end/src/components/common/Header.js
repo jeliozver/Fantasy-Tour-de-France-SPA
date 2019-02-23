@@ -2,20 +2,17 @@ import React from 'react';
 
 import '../../resources/style/Header.css';
 import Navigation from './Navigation';
-import AuthService from '../../utilities/AuthService';
 
-const Auth = new AuthService();
-
-const Header = () => {
-  const user = Auth.getProfile() || '';
+const Header = (props) => {
+  const user = props.Auth.getProfile() || '';
 
   return (
     <header>
       <Navigation
-        isAuth={Auth.isLoggedIn()}
+        isAuth={props.Auth.isLoggedIn()}
         isAdmin={user.isAdmin}
         username={user.username}
-        logout={Auth.logout}
+        logout={props.Auth.logout}
       />
     </header>
   );

@@ -1,11 +1,6 @@
 class RequestService {
   constructor(domain) {
     this.domain = domain || 'http://localhost:8000';
-
-    this.get = this.get.bind(this);
-    this.post = this.post.bind(this);
-    this.update = this.update.bind(this);
-    this.delete = this.delete.bind(this);
   }
 
   get(endpoint, token) {

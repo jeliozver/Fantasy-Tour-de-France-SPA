@@ -5,6 +5,13 @@ toastr.options.newestOnTop = false;
 toastr.options.closeButton = true;
 
 class HelperService {
+
+  /**
+   * Validates the register form
+   * 
+   * @param {Object} payload
+   * @returns {Object}
+   */
   validateRegisterForm(payload) {
     const errors = {};
     let isFormValid = true;
@@ -41,6 +48,12 @@ class HelperService {
     };
   }
 
+  /**
+   * Validates the login form
+   * 
+   * @param {Object} payload
+   * @returns {Object} 
+   */
   validateLoginForm(payload) {
     const errors = {};
     let isFormValid = true;
@@ -67,6 +80,12 @@ class HelperService {
     };
   }
 
+  /**
+   * Validates the stage form
+   * 
+   * @param {Object} payload
+   * @returns {Object}
+   */
   validateStageForm(payload) {
     const errors = {};
     let isFormValid = true;
@@ -123,6 +142,12 @@ class HelperService {
     };
   }
 
+  /**
+   * Validates the team form
+   * 
+   * @param {Object} payload
+   * @returns {Object} 
+   */
   validateTeamForm(payload) {
     const errors = {};
     let isFormValid = true;
@@ -154,6 +179,12 @@ class HelperService {
     };
   }
 
+  /**
+   * Validates the rider form
+   * 
+   * @param {Object} payload
+   * @returns {Object} 
+   */
   validateRiderForm(payload) {
     const errors = {};
     let isFormValid = true;
@@ -209,6 +240,12 @@ class HelperService {
     };
   }
 
+  /**
+   * Validates the fantasy team form
+   * 
+   * @param {Object} payload
+   * @returns {Object}
+   */
   validateFantasyTeamForm(payload) {
     const errors = {};
     let isFormValid = true;
@@ -230,6 +267,12 @@ class HelperService {
     };
   }
 
+  /**
+   * Validates the stage result form
+   * 
+   * @param {Object} payload
+   * @returns {Object}
+   */
   validateStageResultForm(payload) {
     const errors = {};
     let isFormValid = true;
@@ -259,6 +302,11 @@ class HelperService {
     };
   }
 
+  /**
+   * Gets the register form initial state
+   * 
+   * @returns {Object}
+   */
   getRegisterFormState() {
     return {
       formData: {
@@ -270,6 +318,11 @@ class HelperService {
     };
   }
 
+  /**
+   * Gets the login form initial state
+   * 
+   * @returns {Object}
+   */
   getLoginFormState() {
     return {
       formData: {
@@ -279,6 +332,11 @@ class HelperService {
     };
   }
 
+  /**
+   * Gets the stage form initial state
+   * 
+   * @returns {Object}
+   */
   getStageFormState() {
     return {
       formData: {
@@ -294,6 +352,11 @@ class HelperService {
     };
   }
 
+  /**
+   * Gets the team form initial state
+   * 
+   * @returns {Object}
+   */
   getTeamFormState() {
     return {
       formData: {
@@ -304,6 +367,11 @@ class HelperService {
     };
   }
 
+  /**
+   * Gets the rider form initial state
+   * 
+   * @returns {Object}
+   */
   getRiderFormState() {
     return {
       formData: {
@@ -319,6 +387,11 @@ class HelperService {
     };
   }
 
+  /**
+   * Gets the fantasy team form initial state
+   * 
+   * @returns {Object}
+   */
   getFantasyTeamFormState() {
     return {
       formData: {
@@ -327,6 +400,11 @@ class HelperService {
     };
   }
 
+  /**
+   * Gets the stage result form initial state
+   * 
+   * @returns {Object}
+   */
   getStageResultFormState() {
     return {
       formData: {
@@ -346,6 +424,12 @@ class HelperService {
     };
   }
 
+  /**
+   * Gets the country flag short name
+   * 
+   * @param {String} country
+   * @returns {String}
+   */
   getFlag(country) {
     switch (country) {
       case 'France': return 'fr';
@@ -383,6 +467,13 @@ class HelperService {
     }
   }
 
+  /**
+   * Shows toast message
+   * 
+   * @param {String} type 
+   * @param {String} message 
+   * @param {Object} errors 
+   */
   notify(type, message, errors) {
     if (type === 'success') {
       toastr.success(message);
@@ -392,8 +483,10 @@ class HelperService {
       toastr.error(message);
 
       if (errors) {
-        for (let err in errors) {
-          toastr.error(errors[err]);
+        for (const err in errors) {
+          if (errors.hasOwnProperty(err)) {
+            toastr.error(errors[err]);
+          }
         }
       }
     }

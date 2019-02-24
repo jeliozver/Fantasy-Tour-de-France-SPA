@@ -5,7 +5,6 @@ import moment from 'moment';
 
 import '../../resources/style/ManageTeam.css';
 import blankJersey from '../../resources/img/blank-jersey.png';
-import helperService from '../../utilities/helperService';
 
 const restDays = [16, 23];
 
@@ -36,17 +35,19 @@ class ManageFantasyTeam extends Component {
   }
 
   componentDidMount() {
+    const { helper } = this.props;
+
     this.getStage();
 
     this.props.getTeam().then((team) => {
       if (team.success) {
         if (team.body) {
           for (let rider of team.body.riders) {
-            rider['flag'] = helperService.getFlag(rider.country);
+            rider['flag'] = helper.getFlag(rider.country);
           }
           this.props.getRiders(`?page=${this.state.activePage}`).then((riders) => {
             for (let rider of riders.body) {
-              rider['flag'] = helperService.getFlag(rider.country);
+              rider['flag'] = helper.getFlag(rider.country);
             }
 
             this.calcDeadline();
@@ -60,18 +61,18 @@ class ManageFantasyTeam extends Component {
               dataReady: true
             }));
           }).catch((err) => {
-            helperService.notify('error', err);
+            helper.notify('error', err);
             this.props.history.push('/');
           });
         } else {
           this.props.history.push('/user/team');
         }
       } else {
-        helperService.notify('error', team.message);
+        helper.notify('error', team.message);
         this.props.history.push('/');
       }
     }).catch((err) => {
-      helperService.notify('error', err);
+      helper.notify('error', err);
       this.props.history.push('/');
     });
   }
@@ -81,6 +82,8 @@ class ManageFantasyTeam extends Component {
   }
 
   getStage() {
+    const { helper } = this.props;
+
     let date = moment().format('YYYY-MM-DD').split('-');
 
     if (Number(date[1]) === 7) {
@@ -97,10 +100,10 @@ class ManageFantasyTeam extends Component {
             stage: res.body
           });
         } else {
-          helperService.notify('error', res.message);
+          helper.notify('error', res.message);
         }
       }).catch((err) => {
-        helperService.notify('error', err);
+        helper.notify('error', err);
       });
     }
   }
@@ -140,9 +143,11 @@ class ManageFantasyTeam extends Component {
   }
 
   handlePageChange(pageNumber) {
+    const { helper } = this.props;
+
     this.props.getRiders(`?page=${pageNumber}`).then((riders) => {
       for (let rider of riders.body) {
-        rider['flag'] = helperService.getFlag(rider.country);
+        rider['flag'] = helper.getFlag(rider.country);
       }
       this.setState({
         riders: riders.body,
@@ -150,13 +155,15 @@ class ManageFantasyTeam extends Component {
         activePage: pageNumber
       });
     }).catch((err) => {
-      helperService.notify('error', err);
+      helper.notify('error', err);
     });
   }
 
   addRider(rider) {
+    const { helper } = this.props;
+
     if (this.state.team.riders.length >= 8) {
-      helperService.notify('error', 'You can have only 8 riders in your team!');
+      helper.notify('error', 'You can have only 8 riders in your team!');
     } else {
       let isExists = false;
 
@@ -168,7 +175,7 @@ class ManageFantasyTeam extends Component {
       }
 
       if (isExists) {
-        helperService.notify('error', 'Rider is already in your team!');
+        helper.notify('error', 'Rider is already in your team!');
       } else {
         this.setState(prevState => {
           let newBalance = prevState.team.balance - rider.cost;
@@ -192,22 +199,24 @@ class ManageFantasyTeam extends Component {
   }
 
   confirmTeam() {
+    const { helper } = this.props;
+    
     if (this.state.isLocked) {
-      helperService.notify('error', 'Transfers are currently locked!');
+      helper.notify('error', 'Transfers are currently locked!');
     } else if (this.state.team.balance < 0) {
-      helperService.notify('error', 'Insufficient balance!');
+      helper.notify('error', 'Insufficient balance!');
     } else if (this.state.team.riders.length < 8) {
-      helperService.notify('error', 'You need to have 8 riders to complete your team!');
+      helper.notify('error', 'You need to have 8 riders to complete your team!');
     } else {
       this.props.editTeam(this.state.team).then((res) => {
         if (res.success) {
-          helperService.notify('success', res.message);
+          helper.notify('success', res.message);
           this.props.history.push('/user/team');
         } else {
-          helperService.notify('error', res.message);
+          helper.notify('error', res.message);
         }
       }).catch((err) => {
-        helperService.notify('error', err);
+        helper.notify('error', err);
       });
 
     }

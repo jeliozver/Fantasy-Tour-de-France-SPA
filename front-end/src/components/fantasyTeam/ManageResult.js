@@ -1,8 +1,6 @@
 import React, { Component } from 'react';
 
 import StageResultForm from '../forms/StageResultForm';
-import helperService from '../../utilities/helperService';
-
 class ManageResult extends Component {
   constructor(props) {
     super(props);
@@ -12,26 +10,30 @@ class ManageResult extends Component {
   }
 
   handleLock() {
+    const { helper } = this.props;
+
     this.props.lockTransfers().then((res) => {
       if (res.success) {
-        helperService.notify('success', res.message);
+        helper.notify('success', res.message);
       } else {
-        helperService.notify('error', res.message);
+        helper.notify('error', res.message);
       }
     }).catch((err) => {
-      helperService.notify('error', err);
+      helper.notify('error', err);
     });
   }
 
   handleUnlock() {
+    const { helper } = this.props;
+
     this.props.unlockTransfers().then((res) => {
       if (res.success) {
-        helperService.notify('success', res.message);
+        helper.notify('success', res.message);
       } else {
-        helperService.notify('error', res.message);
+        helper.notify('error', res.message);
       }
     }).catch((err) => {
-      helperService.notify('error', err);
+      helper.notify('error', err);
     });
   }
 

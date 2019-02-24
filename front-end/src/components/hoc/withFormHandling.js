@@ -1,7 +1,5 @@
 import React, { Component } from 'react';
 
-import helperService from '../../utilities/helperService';
-
 const withFormHandling = (WrappedComponent) =>
   class extends Component {
     constructor(props) {
@@ -20,6 +18,8 @@ const withFormHandling = (WrappedComponent) =>
     // filling the form with the information from the response 
     // (used when form needs to be filled with data)
     componentDidMount() {
+      const { helper } = this.props;
+      
       if (this.props.fetchFuncs) {
         for (let i = 0; i < this.props.fetchFuncs.length; i++) {
           this.props.fetchFuncs[i](this.props.match.params.id).then((res) => {
@@ -34,11 +34,11 @@ const withFormHandling = (WrappedComponent) =>
                 });
               }
             } else {
-              helperService.notify('error', res.message);
+              helper.notify('error', res.message);
               this.props.history.replace('/');
             }
           }).catch((err) => {
-            helperService.notify('error', err);
+            helper.notify('error', err);
           });
         }
       }
@@ -67,6 +67,8 @@ const withFormHandling = (WrappedComponent) =>
     // OnSubmit executes the passed in form validation func using formData form state
     // If validation passes it executes the passed in submitFunc and launches notifications
     handleFormSubmit(e) {
+      const { helper } = this.props;
+      
       e.preventDefault();
 
       let validationResult = this.props.validateFunc(this.state.formData);
@@ -75,7 +77,7 @@ const withFormHandling = (WrappedComponent) =>
         this.props.submitFunc(this.state.formData, this.props.match.params.id)
           .then((res) => {
             if (res.success) {
-              helperService.notify('success', res.message);
+              helper.notify('success', res.message);
 
               if (this.props.match.url.indexOf('edit') !== -1) {
                 this.props.history.push(this.props.match.url.replace('edit', 'details'));
@@ -85,13 +87,13 @@ const withFormHandling = (WrappedComponent) =>
                 this.props.history.push('/');
               }
             } else {
-              helperService.notify('error', res.message, res.errors);
+              helper.notify('error', res.message, res.errors);
             }
           }).catch((err) => {
-            helperService.notify('error', err);
+            helper.notify('error', err);
           });
       } else {
-        helperService.notify('error', validationResult.message, validationResult.errors);
+        helper.notify('error', validationResult.message, validationResult.errors);
       }
     }
 

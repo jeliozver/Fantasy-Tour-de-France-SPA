@@ -2,12 +2,10 @@ import React from 'react';
 
 import '../../resources/style/Header.css';
 import Navigation from './Navigation';
-import AuthService from '../../utilities/AuthService';
 
-const Auth = new AuthService();
-
-const Header = () => {
-  const user = Auth.getProfile() || '';
+const Header = (props) => {
+  const { Auth, Helper } = props;
+  const user = props.Auth.getProfile() || '';
 
   return (
     <header>
@@ -16,6 +14,7 @@ const Header = () => {
         isAdmin={user.isAdmin}
         username={user.username}
         logout={Auth.logout}
+        helper={Helper}
       />
     </header>
   );

@@ -1,8 +1,6 @@
 import React, { Component } from 'react';
-import { Link } from 'react-router-dom';
 
-import helperService from '../../utilities/helperService';
-
+import Stage from './Stage';
 class Stages extends Component {
   constructor(props) {
     super(props);
@@ -13,16 +11,18 @@ class Stages extends Component {
   }
 
   componentDidMount() {
+    const { helper } = this.props;
+
     this.props.fetchFunc().then((res) => {
       if (res.success) {
         this.setState({
           stages: res.body
         });
       } else {
-        helperService.notify('error', res.message);
+        helper.notify('error', res.message);
       }
     }).catch((err) => {
-      helperService.notify('error', err);
+      helper.notify('error', err);
     });
   }
 
@@ -43,17 +43,7 @@ class Stages extends Component {
           </thead>
           <tbody>
             {this.state.stages.map(
-              (stage) => <tr key={stage._id}>
-                <td>Stage {stage.stageNumber}</td>
-                <td>{stage.stageType}</td>
-                <td>{stage.startDay.substring(0, 10)}</td>
-                <td>{stage.startCity}</td>
-                <td>{stage.endCity}</td>
-                <td>{stage.distance} km</td>
-                <td>
-                  <Link to={`/stage/details/${stage._id}`}>[ Details ]</Link>
-                </td>
-              </tr>
+              (stage) => <Stage key={stage._id} stage={stage} />
             )}
           </tbody>
         </table>

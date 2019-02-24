@@ -7,30 +7,20 @@ import Home from './home/Home';
 import HowTo from './HowTo';
 import LoginForm from './forms/LoginForm';
 import RegisterForm from './forms/RegisterForm';
-
 import StageForm from './forms/StageForm';
 import Stages from './stage/Stages';
 import StageDetails from './stage/StageDetails';
-
 import TeamForm from './forms/TeamForm';
 import Teams from './team/Teams';
 import TeamDetails from './team/TeamDetails';
-
 import RiderForm from './forms/RiderForm';
 import RiderDetails from './rider/RiderDetails';
-
 import MyFantasyTeam from './fantasyTeam/MyFantasyTeam';
 import ManageFantasyTeam from './fantasyTeam/ManageFantasyTeam';
 import ManageResult from './fantasyTeam/ManageResult';
 
-import AuthService from '../utilities/AuthService';
-import CrudService from '../utilities/CrudService';
-import helperService from '../utilities/helperService';
-
-const Auth = new AuthService();
-const Crud = new CrudService();
-
-const MyRouter = () => {
+const MyRouter = (props) => {
+  const { Crud, Auth, Helper } = props;
   const isAuth = Auth.isLoggedIn();
   const isAdmin = Auth.isAdmin();
 
@@ -43,6 +33,7 @@ const MyRouter = () => {
 
         <Route path="/stage/all" render={(props) =>
           <Stages
+            helper={Helper}
             fetchFunc={Crud.getAllStages}
             {...props}
           />}
@@ -50,6 +41,7 @@ const MyRouter = () => {
 
         <Route path="/team/all" render={(props) =>
           <Teams
+            helper={Helper}
             fetchFunc={Crud.getAllTeams}
             {...props}
           />}
@@ -57,6 +49,7 @@ const MyRouter = () => {
 
         <Route path="/team/details/:id" render={(props) =>
           <TeamDetails
+            helper={Helper}
             fetchFunc={Crud.getSingleTeam}
             toggleFunc={Crud.getTeamByNumber}
             isAdmin={isAdmin}
@@ -66,6 +59,7 @@ const MyRouter = () => {
 
         <Route path="/stage/details/:id" render={(props) =>
           <StageDetails
+            helper={Helper}
             fetchFunc={Crud.getSingleStage}
             toggleFunc={Crud.getStageByNumber}
             isAdmin={isAdmin}
@@ -75,6 +69,7 @@ const MyRouter = () => {
 
         <Route path="/rider/details/:id" render={(props) =>
           <RiderDetails
+            helper={Helper}
             fetchFunc={Crud.getSingleRider}
             isAdmin={isAdmin}
             {...props}
@@ -83,9 +78,10 @@ const MyRouter = () => {
 
         <Route exact path="/user/team" render={(props) => !isAuth ? <Redirect to="/" /> :
           <MyFantasyTeam
+            helper={Helper}
             fetchFunc={Crud.getSingleFantasyTeam}
-            initialState={helperService.getFantasyTeamFormState()}
-            validateFunc={helperService.validateFantasyTeamForm}
+            initialState={Helper.getFantasyTeamFormState()}
+            validateFunc={Helper.validateFantasyTeamForm}
             submitFunc={Crud.addFantasyTeam}
             {...props}
           />}
@@ -93,6 +89,7 @@ const MyRouter = () => {
 
         <Route path="/user/team/manage" render={(props) => !isAuth ? <Redirect to="/" /> :
           <ManageFantasyTeam
+            helper={Helper}
             getTeam={Crud.getSingleFantasyTeam}
             getRiders={Crud.getRiders}
             getStage={Crud.getStageByDate}
@@ -103,18 +100,20 @@ const MyRouter = () => {
 
         <Route path="/user/register" render={(props) => isAuth ? <Redirect to="/" /> :
           <RegisterForm
-            initialState={helperService.getRegisterFormState()}
+            helper={Helper}
+            initialState={Helper.getRegisterFormState()}
             submitFunc={Auth.register}
-            validateFunc={helperService.validateRegisterForm}
+            validateFunc={Helper.validateRegisterForm}
             {...props}
           />}
         />
 
         <Route path="/user/login" render={(props) => isAuth ? <Redirect to="/" /> :
           <LoginForm
-            initialState={helperService.getLoginFormState()}
+            helper={Helper}
+            initialState={Helper.getLoginFormState()}
             submitFunc={Auth.login}
-            validateFunc={helperService.validateLoginForm}
+            validateFunc={Helper.validateLoginForm}
             {...props}
           />}
         />
@@ -123,18 +122,20 @@ const MyRouter = () => {
 
         <Route path="/stage/add" render={(props) => !isAdmin ? <Redirect to="/" /> :
           <StageForm
-            initialState={helperService.getStageFormState()}
+            helper={Helper}
+            initialState={Helper.getStageFormState()}
             submitFunc={Crud.addStage}
-            validateFunc={helperService.validateStageForm}
+            validateFunc={Helper.validateStageForm}
             {...props}
           />}
         />
 
         <Route path="/stage/edit/:id" render={(props) => !isAdmin ? <Redirect to="/" /> :
           <StageForm
-            initialState={helperService.getStageFormState()}
+            helper={Helper}
+            initialState={Helper.getStageFormState()}
             submitFunc={Crud.editStage}
-            validateFunc={helperService.validateStageForm}
+            validateFunc={Helper.validateStageForm}
             fetchFuncs={[Crud.getSingleStage]}
             {...props}
           />}
@@ -142,18 +143,20 @@ const MyRouter = () => {
 
         <Route path="/team/add" render={(props) => !isAdmin ? <Redirect to="/" /> :
           <TeamForm
-            initialState={helperService.getTeamFormState()}
+            helper={Helper}
+            initialState={Helper.getTeamFormState()}
             submitFunc={Crud.addTeam}
-            validateFunc={helperService.validateTeamForm}
+            validateFunc={Helper.validateTeamForm}
             {...props}
           />}
         />
 
         <Route path="/team/edit/:id" render={(props) => !isAdmin ? <Redirect to="/" /> :
           <TeamForm
-            initialState={helperService.getTeamFormState()}
+            helper={Helper}
+            initialState={Helper.getTeamFormState()}
             submitFunc={Crud.editTeam}
-            validateFunc={helperService.validateTeamForm}
+            validateFunc={Helper.validateTeamForm}
             fetchFuncs={[Crud.getSingleTeam]}
             {...props}
           />}
@@ -161,9 +164,10 @@ const MyRouter = () => {
 
         <Route path="/rider/add" render={(props) => !isAdmin ? <Redirect to="/" /> :
           <RiderForm
-            initialState={helperService.getRiderFormState()}
+            helper={Helper}
+            initialState={Helper.getRiderFormState()}
             submitFunc={Crud.addRider}
-            validateFunc={helperService.validateRiderForm}
+            validateFunc={Helper.validateRiderForm}
             fetchFuncs={[Crud.getAllTeams]}
             {...props}
           />}
@@ -171,9 +175,10 @@ const MyRouter = () => {
 
         <Route path="/rider/edit/:id" render={(props) => !isAdmin ? <Redirect to="/" /> :
           <RiderForm
-            initialState={helperService.getRiderFormState()}
+            helper={Helper}
+            initialState={Helper.getRiderFormState()}
             submitFunc={Crud.editRider}
-            validateFunc={helperService.validateRiderForm}
+            validateFunc={Helper.validateRiderForm}
             fetchFuncs={[Crud.getAllTeams, Crud.getSingleRider]}
             {...props}
           />}
@@ -181,11 +186,12 @@ const MyRouter = () => {
 
         <Route path="/result/manage" render={(props) => !isAdmin ? <Redirect to="/" /> :
           <ManageResult
+            helper={Helper}
             lockTransfers={Crud.lockTransfers}
             unlockTransfers={Crud.unlockTransfers}
-            initialState={helperService.getStageResultFormState()}
+            initialState={Helper.getStageResultFormState()}
             submitFunc={Crud.submitResult}
-            validateFunc={helperService.validateStageResultForm}
+            validateFunc={Helper.validateStageResultForm}
             fetchFuncs={[Crud.getAllStages]}
             {...props}
           />

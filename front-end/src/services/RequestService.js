@@ -1,13 +1,15 @@
 class RequestService {
   constructor(domain) {
     this.domain = domain || 'http://localhost:8000';
-
-    this.get = this.get.bind(this);
-    this.post = this.post.bind(this);
-    this.update = this.update.bind(this);
-    this.delete = this.delete.bind(this);
   }
 
+  /**
+   * Sends GET request
+   * 
+   * @param {String} endpoint
+   * @param {String} token
+   * @returns {Promise}
+   */
   get(endpoint, token) {
     return this._fetch(`${this.domain}${endpoint}`, {
       method: 'GET'
@@ -16,6 +18,14 @@ class RequestService {
     });
   }
 
+  /**
+   * Sends POST request
+   * 
+   * @param {String} endpoint
+   * @param {Object} body
+   * @param {String} token
+   * @returns {Promise}
+   */
   post(endpoint, body, token) {
     return this._fetch(`${this.domain}${endpoint}`, {
       method: 'POST',
@@ -25,6 +35,13 @@ class RequestService {
     });
   }
 
+  /**
+   * Sends PUT request
+   * 
+   * @param {String} endpoint
+   * @param {Object} body
+   * @param {String} token
+   */
   update(endpoint, body, token) {
     return this._fetch(`${this.domain}${endpoint}`, {
       method: 'PUT',
@@ -34,6 +51,13 @@ class RequestService {
     });
   }
 
+  /**
+   * Sends DELETE request
+   * 
+   * @param {String} endpoint
+   * @param {String} token
+   * @returns {Promise}
+   */
   delete(endpoint, token) {
     return this._fetch(`${this.domain}${endpoint}`, {
       method: 'DELETE',
@@ -42,6 +66,15 @@ class RequestService {
     });
   }
 
+  /**
+   * Sends HTTP request
+   * 
+   * @param {String} url
+   * @param {Object} options 
+   * @param {String} token
+   * @returns {Promise}
+   * @private
+   */
   _fetch(url, options, token) {
     const headers = {
       'Accept': 'application/json',

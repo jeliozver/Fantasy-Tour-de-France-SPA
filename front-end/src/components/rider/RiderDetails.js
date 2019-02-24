@@ -1,8 +1,6 @@
 import React, { Component } from 'react';
 import { Link } from 'react-router-dom';
 
-import helperService from '../../utilities/helperService';
-
 class RiderDetails extends Component {
   constructor(props) {
     super(props);
@@ -15,15 +13,17 @@ class RiderDetails extends Component {
   }
 
   componentDidMount() {
+    const { helper } = this.props;
+    
     this.props.fetchFunc(this.props.match.params.id).then((res) => {
       if (res.success) {
-        res.body['flag'] = helperService.getFlag(res.body.country);
+        res.body['flag'] = helper.getFlag(res.body.country);
         this.setState({
           rider: res.body
         });
       }
     }).catch((err) => {
-      helperService.notify('error', err);
+      helper.notify('error', err);
     });
   }
 

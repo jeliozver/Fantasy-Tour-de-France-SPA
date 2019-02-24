@@ -8,9 +8,7 @@ const RiderDetails = (props) => {
   const url = match.params.id;
   const [fetchedData] = useHttp(url, fetchFunc, helper, []);
   const { success, body } = fetchedData;
-  let rider = { team: {
-    
-  }};
+  let rider = { team: {} };
 
   if (success) {
     rider = body;

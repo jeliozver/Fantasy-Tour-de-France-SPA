@@ -4,7 +4,7 @@ import Header from './common/Header';
 import MyRouter from './MyRouter';
 import Footer from './common/Footer';
 
-import AuthService from '../services/AuthService'
+import AuthService from '../services/AuthService';
 import CrudService from '../services/CrudService';
 import HelperService from '../services/HelperService';
 

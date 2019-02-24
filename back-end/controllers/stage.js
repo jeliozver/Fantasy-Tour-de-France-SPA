@@ -159,7 +159,7 @@ module.exports = {
   },
 
   getByNumber: (req, res) => {
-    const number = Number(req.params.number);
+    let number = Number(req.params.number);
 
     if (isNaN(number)) {
       return res.status(400).json({

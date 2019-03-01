@@ -4,8 +4,8 @@ import RequestService from './RequestService';
 const Request = new RequestService();
 class AuthService {
   constructor() {
-    this.token = '';
-    this.userDetails = {};
+    this.token = undefined;
+    this.userDetails = undefined;
 
     this.register = this.register.bind(this);
     this.login = this.login.bind(this);
@@ -42,6 +42,8 @@ class AuthService {
    */
   logout() {
     localStorage.removeItem('token');
+    this.token = undefined;
+    this.userDetails = undefined;
   }
 
   /**

@@ -3,6 +3,7 @@
 [![Logo](https://i.imgur.com/JArn7Kt.png)](https://www.letour.fr/en/)
 
 ### Description
+
 Fantasy Tour de France it's a simple single page application (SPA) that lets you pick a team of riders to compete while the race progresses. You score points based on how well your riders qualify after each stage is completed. You can change your team along the way to pick the best riders for different types of stage.
 
 ### Tech
@@ -15,13 +16,13 @@ Fantasy Tour de France uses a number of open source projects to work:
 * [JSONWebToken](https://jwt.io) - Used for authorization
 * [ReactJS](https://reactjs.org) - A JavaScript library for building user interfaces
 
-The goal of this project is to show the core concepts of building SPA with ExpressJS and ReactJS. In this project I've used:
+The goal of this project is to show the core concepts of building SPA with ReactJS. In this project I've used:
 
-* React Regular Components
+* React Hooks (They let you use state and other React features without writing a class)
 * React Higher Order Components
-* React Stateless Functional Components where no state is needed
+* React Functional Components
 * React Router for routing
-* Request, Auth, CRUD and helper services in attempt to abstract some of the functions, making them reusable
+* Request, Auth, CRUD and Helper services in attempt to abstract some of the functionality
 
 ### Installation
 

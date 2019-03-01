@@ -7,7 +7,7 @@ const Stages = (props) => {
   const { fetchFunc, helper } = props;
   const [fetchedData] = useHttp('', fetchFunc, helper, []);
   let stages = [];
-  
+
   if (fetchedData.success) {
     stages = fetchedData.body;
   }

@@ -16,7 +16,7 @@ const App = () => {
   return (
     <div className="wrapper">
       <Header Auth={Auth} Helper={Helper} />
-      <MyRouter Auth={Auth} Crud={Crud} Helper={Helper}/>
+      <MyRouter Auth={Auth} Crud={Crud} Helper={Helper} />
       <Footer />
     </div>
   );

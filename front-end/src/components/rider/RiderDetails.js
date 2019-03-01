@@ -1,70 +1,56 @@
-import React, { Component } from 'react';
+import React from 'react';
 import { Link } from 'react-router-dom';
 
-class RiderDetails extends Component {
-  constructor(props) {
-    super(props);
+import { useHttp } from '../../hooks/useHttp';
 
-    this.state = {
-      rider: {
-        team: {}
-      }
-    };
+const RiderDetails = (props) => {
+  const { fetchFunc, helper, match } = props;
+  const url = match.params.id;
+  const [fetchedData] = useHttp(url, fetchFunc, helper, []);
+  const { success, body } = fetchedData;
+  let rider = { team: {} };
+
+  if (success) {
+    rider = body;
+    rider['flag'] = helper.getFlag(rider.country);
   }
 
-  componentDidMount() {
-    const { helper } = this.props;
-    
-    this.props.fetchFunc(this.props.match.params.id).then((res) => {
-      if (res.success) {
-        res.body['flag'] = helper.getFlag(res.body.country);
-        this.setState({
-          rider: res.body
-        });
-      }
-    }).catch((err) => {
-      helper.notify('error', err);
-    });
-  }
-
-  render() {
-    return (
-      <section id="rider-single">
+  return (
+    <section id="rider-single">
+      <div>
+        <h1>
+          {rider.name}
+          <img src="" className={`flag flag-${rider.flag}`} alt="" />
+        </h1>
+        <img className="rider-img" src={rider.image} alt="rider" />
         <div>
-          <h1>
-            {this.state.rider.name}
-            <img src="" className={`flag flag-${this.state.rider.flag}`} alt="" />
-          </h1>
-          <img className="rider-img" src={this.state.rider.image} alt="rider" />
-          <div>
-            {this.props.isAdmin ? <Link className="rider-btn" to={`/rider/edit/${this.state.rider._id}`}>Edit Rider</Link> : ''}
-          </div>
-          <table>
-            <thead>
-              <tr>
-                <th>Team</th>
-                <th>Rider Type</th>
-                <th>Nationality</th>
-                <th>Age</th>
-                <th>Value</th>
-              </tr>
-            </thead>
-            <tbody>
-              <tr>
-                <td>
-                  <Link to={`/team/details/${this.state.rider.team._id}`}>{this.state.rider.team.name}</Link>
-                </td>
-                <td>{this.state.rider.riderType}</td>
-                <td>{this.state.rider.country}</td>
-                <td>{this.state.rider.age}</td>
-                <td>{this.state.rider.cost}</td>
-              </tr>
-            </tbody>
-          </table>
+          {props.isAdmin ? <Link className="rider-btn" to={`/rider/edit/${rider._id}`}>Edit Rider</Link> : ''}
         </div>
-      </section>
-    );
-  }
-}
+        <table>
+          <thead>
+            <tr>
+              <th>Team</th>
+              <th>Rider Type</th>
+              <th>Nationality</th>
+              <th>Age</th>
+              <th>Value</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr>
+              <td>
+                <Link to={`/team/details/${rider.team._id}`}>{rider.team.name}</Link>
+              </td>
+              <td>{rider.riderType}</td>
+              <td>{rider.country}</td>
+              <td>{rider.age}</td>
+              <td>{rider.cost}</td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
+    </section>
+  );
+};
 
 export default RiderDetails;

@@ -4,5 +4,5 @@ const withEither = (conditionalRenderingFn, EitherComponent) => (Component) => (
   conditionalRenderingFn(props)
     ? <Component {...props} />
     : <EitherComponent />;
-    
+
 export default withEither;

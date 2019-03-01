@@ -13,8 +13,8 @@ const NavigationBase = (props) => {
 
     logout();
     helper.notify('success', 'Logout successful!');
+  };
 
-  }
   return (
     <nav className="nav">
       <ul>

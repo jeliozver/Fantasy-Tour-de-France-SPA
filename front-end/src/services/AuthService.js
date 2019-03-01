@@ -4,6 +4,9 @@ import RequestService from './RequestService';
 const Request = new RequestService();
 class AuthService {
   constructor() {
+    this.token = '';
+    this.userDetails = {};
+
     this.register = this.register.bind(this);
     this.login = this.login.bind(this);
   }
@@ -44,15 +47,18 @@ class AuthService {
   /**
    * Gets user profile 
    * 
-   * @returns {Object/undefined}
+   * @returns {Object}
    */
   getProfile() {
     try {
-      const decoded = decode(this._getToken());
+      if (!this.userDetails) {
+        const decoded = decode(this._getToken());
+        this.userDetails = decoded.sub;
+      }
 
-      return decoded.sub;
+      return this.userDetails;
     } catch (err) {
-      return undefined;
+      return {};
     }
   }
 
@@ -105,6 +111,7 @@ class AuthService {
    * @private 
    */
   _setToken(token) {
+    this.token = token;
     localStorage.setItem('token', token);
   }
 
@@ -115,7 +122,11 @@ class AuthService {
    * @private
    */
   _getToken() {
-    return localStorage.getItem('token');
+    if (!this.token) {
+      this.token = localStorage.getItem('token');
+    }
+
+    return this.token;
   }
 }
 

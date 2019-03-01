@@ -1,18 +1,12 @@
-import React, { Component } from 'react';
+import React from 'react';
 
 import StageResultForm from '../forms/StageResultForm';
-class ManageResult extends Component {
-  constructor(props) {
-    super(props);
 
-    this.handleLock = this.handleLock.bind(this);
-    this.handleUnlock = this.handleUnlock.bind(this);
-  }
+const ManageResult = (props) => {
+  const { helper, lockTransfers, unlockTransfers, ...otherProps } = props;
 
-  handleLock() {
-    const { helper } = this.props;
-
-    this.props.lockTransfers().then((res) => {
+  const handleLock = () => {
+    lockTransfers().then((res) => {
       if (res.success) {
         helper.notify('success', res.message);
       } else {
@@ -21,12 +15,10 @@ class ManageResult extends Component {
     }).catch((err) => {
       helper.notify('error', err);
     });
-  }
+  };
 
-  handleUnlock() {
-    const { helper } = this.props;
-
-    this.props.unlockTransfers().then((res) => {
+  const handleUnlock = () => {
+    unlockTransfers().then((res) => {
       if (res.success) {
         helper.notify('success', res.message);
       } else {
@@ -35,24 +27,20 @@ class ManageResult extends Component {
     }).catch((err) => {
       helper.notify('error', err);
     });
-  }
+  };
 
-  render() {
-    let { lockTransfers, unlockTransfers, ...otherProps } = this.props;
-
-    return (
-      <section id="manage-result">
-        <div>
-          <button className="lock" onClick={this.handleLock}><i className="fas fa-lock"></i> Transfers</button>
-          <button className="unlock" onClick={this.handleUnlock}><i className="fas fa-lock-open"></i> Transfers</button>
-        </div>
-        <div>
-          <h1>Top ten results in classification after stage is complete</h1>
-          <StageResultForm {...otherProps} />
-        </div>
-      </section>
-    );
-  }
-}
+  return (
+    <section id="manage-result">
+      <div>
+        <button className="lock" onClick={handleLock}><i className="fas fa-lock"></i> Transfers</button>
+        <button className="unlock" onClick={handleUnlock}><i className="fas fa-lock-open"></i> Transfers</button>
+      </div>
+      <div>
+        <h1>Top ten results in classification after stage is complete</h1>
+        <StageResultForm {...otherProps} />
+      </div>
+    </section>
+  );
+};
 
 export default ManageResult;

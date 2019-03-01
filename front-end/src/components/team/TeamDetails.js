@@ -1,101 +1,76 @@
-import React, { Component } from 'react';
+import React, { useState, useEffect } from 'react';
 import { Link } from 'react-router-dom';
 
-class TeamDetails extends Component {
-  constructor(props) {
-    super(props);
+const TeamDetails = (props) => {
+  const [state, setState] = useState({ team: { riders: [] } });
 
-    this.state = {
-      team: {
-        riders: []
-      },
-      teamOnFocus: ''
-    };
-
-    this.handleResponse = this.handleResponse.bind(this);
-    this.prevTeam = this.prevTeam.bind(this);
-    this.nextTeam = this.nextTeam.bind(this);
-  }
-
-  handleResponse(res) {
-    const { helper } = this.props;
+  const handleResponse = (res) => {
+    const { helper } = props;
 
     if (res.success) {
-
-      res.body['flag'] = helper.getFlag(res.body.country);
-
-      for (let rider of res.body.riders) {
-        rider['flag'] = helper.getFlag(rider.country);
-      }
-
-      this.setState({
-        team: res.body,
-        teamOnFocus: res.body.teamNumber
-      });
+      res.body.flag = helper.getFlag(res.body.country);
+      setState({ ...state, team: res.body, teamOnFocus: res.body.teamNumber });
     } else {
       helper.notify('error', res.message);
     }
-  }
+  };
 
-  componentDidMount() {
-    const { helper } = this.props;
+  useEffect(() => {
+    const { fetchFunc, helper, match } = props;
 
-    this.props.fetchFunc(this.props.match.params.id).then((res) => {
-      this.handleResponse(res);
-    }).catch((err) => {
-      helper.notify('error', err);
+    fetchFunc(match.params.id)
+      .then(res => handleResponse(res))
+      .catch(err => helper.notify('error', err));
+  }, []);
+
+  const prevTeam = () => {
+    const { helper } = props;
+
+    props.toggleFunc(state.teamOnFocus - 1)
+      .then(res => handleResponse(res))
+      .catch(err => helper.notify('error', err));
+  };
+
+  const nextTeam = () => {
+    const { helper } = props;
+
+    props.toggleFunc(state.teamOnFocus + 1)
+      .then(res => handleResponse(res))
+      .catch(err => helper.notify('error', err));
+  };
+
+  const renderRiders = () => {
+    return state.team.riders.map((rider) => {
+      rider.flag = props.helper.getFlag(rider.country);
+      return (<div key={rider._id} className="rider-card">
+        <h1>{rider.name}</h1>
+        <h2>{rider.country}</h2>
+        <img src="" className={`flag flag-${rider.flag}`} alt="" />
+        <Link to={`/rider/details/${rider._id}`}>
+          <img src={rider.image} alt="rider-img" />
+        </Link>
+      </div>);
     });
-  }
+  };
 
-  prevTeam() {
-    const { helper } = this.props;
-
-    this.props.toggleFunc(this.state.teamOnFocus - 1).then((res) => {
-      this.handleResponse(res);
-    }).catch((err) => {
-      helper.notify('error', err);
-    });
-  }
-
-  nextTeam() {
-    const { helper } = this.props;
-    
-    this.props.toggleFunc(this.state.teamOnFocus + 1).then((res) => {
-      this.handleResponse(res);
-    }).catch((err) => {
-      helper.notify('error', err);
-    });
-  }
-
-  render() {
-    return (
-      <section id="team-single">
-        <div onClick={this.prevTeam} className="arrows prev"></div>
-        <div onClick={this.nextTeam} className="arrows next"></div>
-        <div className="team-card">
-          <h1>{this.state.team.name}</h1>
-          <h2>{this.state.team.country}</h2>
-          <img src="" className={`flag flag-${this.state.team.flag}`} alt="" />
-          <img className="jersey" src={this.state.team.jersey} alt="team-jersey" />
-        </div>
-        <div>
-          {this.props.isAdmin ? <Link className="team-btn" to={`/team/edit/${this.state.team._id}`}>Edit Team</Link> : ''}
-        </div>
-        <div className="team-riders">
-          {this.state.team.riders.map(
-            (rider) => <div key={rider._id} className="rider-card">
-              <h1>{rider.name}</h1>
-              <h2>{rider.country}</h2>
-              <img src="" className={`flag flag-${rider.flag}`} alt="" />
-              <Link to={`/rider/details/${rider._id}`}>
-                <img src={rider.image} alt="rider-img" />
-              </Link>
-            </div>
-          )}
-        </div>
-      </section>
-    );
-  }
-}
+  return (
+    <section id="team-single">
+      <div onClick={prevTeam} className="arrows prev"></div>
+      <div onClick={nextTeam} className="arrows next"></div>
+      <div className="team-card">
+        <h1>{state.team.name}</h1>
+        <h2>{state.team.country}</h2>
+        <img src="" className={`flag flag-${state.team.flag}`} alt="" />
+        <img className="jersey" src={state.team.jersey} alt="team-jersey" />
+      </div>
+      <div>
+        {props.isAdmin ? <Link className="team-btn" to={`/team/edit/${state.team._id}`}>Edit Team</Link> : ''}
+      </div>
+      <div className="team-riders">
+        {renderRiders()}
+      </div>
+    </section>
+  );
+};
 
 export default TeamDetails;

@@ -1,46 +1,29 @@
-import React, { Component } from 'react';
+import React from 'react';
 
+import { useHttp } from '../../hooks/useHttp';
 import Team from './Team';
 
-class Teams extends Component {
-  constructor(props) {
-    super(props);
+const Teams = (props) => {
+  const { fetchFunc, helper } = props;
+  const [fetchedData] = useHttp('', fetchFunc, helper, []);
+  let teams = [];
 
-    this.state = {
-      teams: []
-    };
+  if (fetchedData.success) {
+    teams = fetchedData.body;
   }
 
-  componentDidMount() {
-    const { helper } = this.props;
-    
-    this.props.fetchFunc().then((res) => {
-      if (res.success) {
-
-        for (let tm of res.body) {
-          tm['flag'] = helper.getFlag(tm.country);
-        }
-
-        this.setState({
-          teams: res.body
-        });
-      } else {
-        helper.notify('error', res.message);
-      }
-    }).catch((err) => {
-      helper.notify('error', err);
+  const renderTeams = () => {
+    return teams.map((tm) => {
+      tm.flag = helper.getFlag(tm.country);
+      return <Team key={tm._id} team={tm} />;
     });
-  }
+  };
 
-  render() {
-    return (
-      <section id="teams-all">
-        {this.state.teams.map(
-          (tm) => <Team key={tm._id} team={tm} />
-        )}
-      </section>
-    );
-  }
-}
+  return (
+    <section id="teams-all">
+      {renderTeams()}
+    </section>
+  );
+};
 
 export default Teams;
